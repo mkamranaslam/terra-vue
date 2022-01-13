@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 # abort on errors
-set -e
+##set -e
 
 # build
 npm run build
@@ -20,6 +20,7 @@ git commit -m 'deploy'
 # git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git main
 
 # if you are deploying to https://<USERNAME>.github.io/<REPO>
-git push -f git@github.com:mkamranaslam/terra-vue.git main:gh-pages
+git push -f https://github.com/mkamranaslam/terra-vue.git master:gh-pages
 
-cd -
+
+read -n 1 -r -s -p $'Press enter to continue...\n'
