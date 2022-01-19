@@ -4,6 +4,7 @@ import { ref } from 'vue';
 import ConnectSample from './components/ConnectSample.vue';
 import QuerySample from './components/QuerySample.vue';
 import TxSample from './components/TxSample.vue';
+import MintSample from 'components/MintSample.vue';
 
 const initialized = ref<boolean>(false);
 
@@ -17,6 +18,7 @@ initController().then(() => {
   <div v-else>
     <ConnectSample />
     <QuerySample />
+    <MintSample />
     <!-- <TxSample /> -->
   </div>
 </template>

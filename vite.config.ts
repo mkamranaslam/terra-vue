@@ -2,6 +2,7 @@ import * as path from 'path';
 import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import vue from '@vitejs/plugin-vue';
+import { viteExternalsPlugin } from 'vite-plugin-externals'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -25,7 +26,16 @@ export default defineConfig({
   //    peerMaxConcurrentStreams: 300,
   //  },
   //},
-  plugins: [tsconfigPaths(), vue()],
+  plugins: [
+    tsconfigPaths(),
+    vue(),
+    viteExternalsPlugin({
+      electron: 'electron',
+      'electron-fetch': 'electron-fetch',
+      react: 'React',
+      lazy: ['electron', 'react', 'lazy'],
+    }),
+  ],
   //build: {
   //  sourcemap: true,
   //  rollupOptions: {
