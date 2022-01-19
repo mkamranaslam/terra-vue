@@ -1,16 +1,11 @@
 <script setup lang="ts">
-import {
-    ConnectedWallet,
-    createLCDClient
-} from '@terra-money/wallet-controller';
-import { getController } from 'controller';
-import { Subscription } from 'rxjs';
 import { onMounted, onUnmounted, ref } from 'vue';
-import { create } from 'ipfs-http-client';
+import { Subscription } from 'rxjs';
+import { ConnectedWallet, createLCDClient } from '@terra-money/wallet-controller';
 import { MsgExecuteContract } from '@terra-money/terra.js';
+import { getController } from 'controller';
 import { NftTokenInfo } from 'Dtos';
-
-const ipfsClient = create({ host: 'ipfs.infura.io', port: 5001, apiPath: '/api/v0', protocol: "https" });
+import { create } from 'ipfs-http-client';
 
 const controller = getController();
 
@@ -67,6 +62,7 @@ async function loadNfts() {
 }
 
 async function mint() {
+    const ipfsClient = create({ host: 'ipfs.infura.io', port: 5001, apiPath: '/api/v0', protocol: "https" });
     showError.value = false;
     showTxResponse.value = false;
     console.log(fileSelected.name);
@@ -86,6 +82,7 @@ async function mint() {
 
             const added = await ipfsClient.add(fileSelected)
             const url = `https://ipfs.infura.io/ipfs/${added.path}`
+            // const url = "";
             ipfsUrl.value = url;
 
             let tokenId = tokenCount.value ?? 0;
@@ -121,7 +118,7 @@ function onFileSelected(event: any) {
 </script>
 
 <template>
-    <h1>Mint Sample</h1>
+    <h1>Mint Sample V3</h1>
     <p v-if="!connectedWallet">Wallet not connected!</p>
 
     <div v-if="connectedWallet">
@@ -131,9 +128,9 @@ function onFileSelected(event: any) {
         <p v-show="showTxResponse">Tx Response: {{ JSON.stringify(txResponse) }}</p>
         <p v-show="showError">errorMsg: {{ errorMsg }}</p>
     </div>
-    <br>
+    <br />
     <div v-if="showNfts">
-    <h1>NFT's</h1>
+        <h1>NFT's</h1>
         <img v-for="nft in allNfts" :src="nft.ipfsUrl" class height="100" width="100" />
     </div>
 </template>
